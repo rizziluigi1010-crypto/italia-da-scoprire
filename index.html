@@ -1,1 +1,59 @@
-
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Italia da Scoprire</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#faf8f3;color:#253b32}
+header{background:#16513d;color:white;text-align:center;padding:55px 18px}
+h1{font-size:36px;margin:0 0 12px}
+header p{line-height:1.6}
+main{max-width:1000px;margin:auto;padding:28px 18px}
+input{width:100%;padding:16px;font-size:17px;border:1px solid #ccc;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:white;border-radius:12px;padding:22px;box-shadow:0 3px 12px #0001}
+button.card{width:100%;text-align:left;border:0;color:inherit;cursor:pointer;font-size:16px}
+small{color:#63756a}
+section{margin-top:35px}
+footer{background:#16513d;color:white;text-align:center;padding:26px}
+</style>
+</head>
+<body>
+<header>
+<h1>🇮🇹 Italia da Scoprire</h1>
+<p>Ogni città, ogni paese, una storia da raccontare.</p>
+<p>Storia • Monumenti • Musei • Tradizioni • Gastronomia • Itinerari</p>
+</header>
+<main>
+<h2>Esplora l'Italia</h2>
+<p>Scopri i territori e le loro meraviglie.</p>
+<input id="cerca" placeholder="Cerca una città o un paese..." oninput="mostra()">
+<p id="conteggio"></p>
+<div class="grid" id="elenco"></div>
+<section id="dettagli"></section>
+<section>
+<h2>Il nostro progetto</h2>
+<p>Italia da Scoprire nasce per raccontare gratuitamente il patrimonio storico, culturale e gastronomico dei comuni italiani.</p>
+<p>Questa è la prima versione dimostrativa. L'archivio nazionale sarà aggiunto progressivamente con informazioni verificate.</p>
+</section>
+</main>
+<footer>Italia da Scoprire — La bellezza dell'Italia, comune per comune.</footer>
+<script>
+const comuni=[["Roma","Lazio"],["Milano","Lombardia"],["Napoli","Campania"],["Torino","Piemonte"],["Firenze","Toscana"],["Venezia","Veneto"],["Bologna","Emilia-Romagna"],["Genova","Liguria"],["Palermo","Sicilia"],["Bari","Puglia"],["Barletta","Puglia"],["Trani","Puglia"]];
+function mostra(){
+const q=document.getElementById("cerca").value.toLowerCase();
+const lista=comuni.map((c,i)=>({c,i})).filter(x=>x.c[0].toLowerCase().includes(q)||x.c[1].toLowerCase().includes(q));
+document.getElementById("conteggio").textContent=lista.length+" località dimostrative";
+document.getElementById("elenco").innerHTML=lista.map(x=>'<button class="card" onclick="apri('+x.i+')"><small>'+x.c[1]+'</small><h3>'+x.c[0]+'</h3>Scopri la località →</button>').join("");
+}
+function apri(i){
+const c=comuni[i];
+document.getElementById("dettagli").innerHTML='<h2>'+c[0]+' — '+c[1]+'</h2><div class="grid">'+["Storia","Monumenti","Musei","Tradizioni","Gastronomia","Itinerari","Servizi e contatti pubblici"].map(t=>'<div class="card"><h3>'+t+'</h3><p>Informazioni in preparazione.</p></div>').join("")+'</div>';
+document.getElementById("dettagli").scrollIntoView({behavior:"smooth"});
+}
+mostra();
+</script>
+</body>
+</html>
